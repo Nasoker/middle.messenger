@@ -1,4 +1,4 @@
-@use "../../styles/variables" as v;
+@use "../../../styles/variables" as v;
 
 
 .form{
@@ -52,13 +52,6 @@
 
         &__input {
             padding-bottom: 7px;
-        }
-
-        &__link {
-            font-size: v.$font-medium;
-            color: v.$main-color;
-            text-align: center;
-            text-decoration: none;
         }
     }
 }

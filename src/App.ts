@@ -1,17 +1,36 @@
 import Handlebars from "handlebars";
 import * as Pages from "./pages/pages.ts";
-import { mockInputs } from "./mocks/mockData";
+import { mockInputs, mockChats, mockMessages } from "./mocks/mockData";
 import "./styles/index.scss";
 
-import { Input } from "./components/input/input.ts";
-import { Form } from "./components/form/form.ts";
+import avatarUrl from "./assets/images/avatar.png";
+import searchIcon from "./assets/svg/searchIcon.svg";
+import arrowIcon from "./assets/svg/arrowIcon.svg";
+import addIcon from "./assets/svg/addIcon.svg";
+import messageIcon from "./assets/svg/messageIcon.svg";
+import tripleDotsIcon from "./assets/svg/tripleDotsIcon.svg";
+import readMessageIcon from "./assets/svg/readMessageIcon.svg";
+
+import { Input } from "./components/auth/input/input.ts";
+import { Link } from "./components/auth/link/link.ts";
+import { Form } from "./components/auth/form/form.ts";
+
+import { SideBarMessage } from "./components/chat/sideBarMessage/sideBarMessage.ts";
+import { ChatMessage } from "./components/chat/chatMessage/chatMessage.ts";
+
+import ifEq from "./helpers/ifEq.ts";
 
 Handlebars.registerPartial("Input", Input);
+Handlebars.registerPartial("Link", Link);
 Handlebars.registerPartial("Form", Form);
+Handlebars.registerPartial("SideBarMessage", SideBarMessage);
+Handlebars.registerPartial("ChatMessage", ChatMessage);
+
+Handlebars.registerHelper("ifEq", ifEq);
 
 export class App {
     state = {
-        currentPage: "login",
+        currentPage: "chats",
     };
     appElement = document.getElementById("app");
 
@@ -30,9 +49,11 @@ export class App {
                         inputs: mockInputs.login,
                         title: "Вход",
                         buttonText: "Авторизоваться",
-                        linkText: "Нет аккаунта",
                         buttonLink: "chats",
-                        link: "signin",
+                        link: {
+                            url: "signin",
+                            text: "Нет аккаунта?",
+                        }
                     },
                 });
                 break;
@@ -43,9 +64,41 @@ export class App {
                         inputs: mockInputs.signin,
                         title: "Регистрация",
                         buttonText: "Зарегистрироваться",
-                        linkText: "Войти",
                         buttonLink: "chats",
-                        link: "login",
+                        link: {
+                            url: "login",
+                            text: "Войти",
+                        }
+                    },
+                });
+                break;
+            case "error":
+                this.compile(Pages.ErrorPage, {
+                    title: "500",
+                    description: "Мы уже фиксим",
+                    link: {
+                        url: "chats",
+                        text: "Назад к чатам",
+                        styleClass: "error-container__link",
+                    }
+                });
+                break;
+            case "chats":
+                this.compile(Pages.ChatsPage, {
+                    chats: mockChats.map(chat => ({
+                        ...chat,
+                        avatar: avatarUrl,
+                    })),
+                    message: mockMessages,
+                    name: "Вадим",
+                    icons: {
+                        avatar: avatarUrl,
+                        addIcon: addIcon,
+                        arrowIcon: arrowIcon,
+                        messageIcon: messageIcon,
+                        searchIcon: searchIcon,
+                        tripleDotsIcon: tripleDotsIcon,
+                        readMessageIcon: readMessageIcon,
                     },
                 });
                 break;
