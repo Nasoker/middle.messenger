@@ -42,12 +42,15 @@ const icons = {
 };
 
 export class App {
-    state = {
-        currentPage: "login",
-    };
-    appElement = document.getElementById("app");
-
-    constructor() {}
+    appElement;
+    state;
+    
+    constructor() {
+        this.appElement = document.getElementById("app") as HTMLElement;
+        this.state = {
+            currentPage: "login",
+        }
+    }
 
     compile(page: string, data: any) {
         const template = Handlebars.compile(page)(data);
@@ -134,10 +137,19 @@ export class App {
                 });
                 break;
             case "changePassword":
+                this.compile(Pages.ProfilePage, {
+                    avatar: avatarUrl,
+                    info : mockInputs.changePassword,
+                    back: "profile",
+                    name: "Иван",
+                    button: true,
+                    icons: icons,
+                });
+                break;
             case "changeData":
                 this.compile(Pages.ProfilePage, {
                     avatar: avatarUrl,
-                    info : mockInputs[this.state.currentPage],
+                    info : mockInputs.changeData,
                     back: "profile",
                     name: "Иван",
                     button: true,
@@ -150,12 +162,12 @@ export class App {
     }
 
     registerEvents() {
-        const allLinks = this.appElement.querySelectorAll("[data-link]");
+        const allLinks = this.appElement.querySelectorAll<HTMLElement>("[data-link]");
 
         allLinks.forEach((link) => {
-            link.addEventListener("click", (event) => {
+            link.addEventListener("click", (event: Event) => {
                 event.preventDefault();
-                this.state.currentPage = link.dataset.link;
+                this.state.currentPage = link.dataset.link!;
                 this.render();
             });
         });
