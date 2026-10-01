@@ -134,19 +134,10 @@ export class App {
                 });
                 break;
             case "changePassword":
-                this.compile(Pages.ProfilePage, {
-                    avatar: avatarUrl,
-                    info : mockInputs.changePassword,
-                    back: "profile",
-                    name: "Иван",
-                    button: true,
-                    icons: icons,
-                });
-                break;
             case "changeData":
                 this.compile(Pages.ProfilePage, {
                     avatar: avatarUrl,
-                    info : mockInputs.changeData,
+                    info : mockInputs[this.state.currentPage],
                     back: "profile",
                     name: "Иван",
                     button: true,
