@@ -14,9 +14,10 @@ import readMessageIcon from "./assets/svg/readMessageIcon.svg";
 import { Input } from "./components/auth/input/input.ts";
 import { Link } from "./components/auth/link/link.ts";
 import { Form } from "./components/auth/form/form.ts";
-
 import { SideBarMessage } from "./components/chat/sideBarMessage/sideBarMessage.ts";
 import { ChatMessage } from "./components/chat/chatMessage/chatMessage.ts";
+import { SubmitButton } from "./components/chat/submitButton/submitButton.ts";
+import { ProfileInput } from "./components/profile/profileInput/profileInput.ts";
 
 import ifEq from "./helpers/ifEq.ts";
 
@@ -25,12 +26,24 @@ Handlebars.registerPartial("Link", Link);
 Handlebars.registerPartial("Form", Form);
 Handlebars.registerPartial("SideBarMessage", SideBarMessage);
 Handlebars.registerPartial("ChatMessage", ChatMessage);
+Handlebars.registerPartial("SubmitButton", SubmitButton);
+Handlebars.registerPartial("ProfileInput", ProfileInput);
 
 Handlebars.registerHelper("ifEq", ifEq);
 
+const icons = {
+    avatar: avatarUrl,
+    addIcon: addIcon,
+    arrowIcon: arrowIcon,
+    messageIcon: messageIcon,
+    searchIcon: searchIcon,
+    tripleDotsIcon: tripleDotsIcon,
+    readMessageIcon: readMessageIcon,
+};
+
 export class App {
     state = {
-        currentPage: "chats",
+        currentPage: "login",
     };
     appElement = document.getElementById("app");
 
@@ -53,7 +66,7 @@ export class App {
                         link: {
                             url: "signin",
                             text: "Нет аккаунта?",
-                        }
+                        },
                     },
                 });
                 break;
@@ -68,7 +81,7 @@ export class App {
                         link: {
                             url: "login",
                             text: "Войти",
-                        }
+                        },
                     },
                 });
                 break;
@@ -80,26 +93,64 @@ export class App {
                         url: "chats",
                         text: "Назад к чатам",
                         styleClass: "error-container__link",
-                    }
+                    },
                 });
                 break;
             case "chats":
                 this.compile(Pages.ChatsPage, {
-                    chats: mockChats.map(chat => ({
+                    chats: mockChats.map((chat) => ({
                         ...chat,
                         avatar: avatarUrl,
                     })),
                     message: mockMessages,
                     name: "Вадим",
-                    icons: {
-                        avatar: avatarUrl,
-                        addIcon: addIcon,
-                        arrowIcon: arrowIcon,
-                        messageIcon: messageIcon,
-                        searchIcon: searchIcon,
-                        tripleDotsIcon: tripleDotsIcon,
-                        readMessageIcon: readMessageIcon,
-                    },
+                    icons: icons,
+                });
+                break;
+            case "profile":
+                this.compile(Pages.ProfilePage, {
+                    avatar: avatarUrl,
+                    info : mockInputs.profile,
+                    back: "chats",
+                    name: "Иван",
+                    links: [
+                        {
+                            text: "Изменить данные",
+                            url: "changeData",
+                            styleClass: "profile-main__links-item",
+                        },
+                        {
+                            text: "Изменить пароль",
+                            url: "changePassword",
+                            styleClass: "profile-main__links-item",
+                        },
+                        {
+                            text: "Выйти",
+                            url: "login",
+                            styleClass: "profile-main__links-item",
+                        },
+                    ],
+                    icons: icons,
+                });
+                break;
+            case "changePassword":
+                this.compile(Pages.ProfilePage, {
+                    avatar: avatarUrl,
+                    info : mockInputs.changePassword,
+                    back: "profile",
+                    name: "Иван",
+                    button: true,
+                    icons: icons,
+                });
+                break;
+            case "changeData":
+                this.compile(Pages.ProfilePage, {
+                    avatar: avatarUrl,
+                    info : mockInputs.changeData,
+                    back: "profile",
+                    name: "Иван",
+                    button: true,
+                    icons: icons,
                 });
                 break;
         }

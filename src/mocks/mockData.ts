@@ -48,6 +48,108 @@ export const mockInputs = {
             label: "Пароль (ещё раз)",
         },
     },
+    profile: {
+        email: {
+            id: "email",
+            type: "email",
+            label: "Почта",
+            value: "pochta@yandex.ru",
+            disabled: true,
+        },
+        login: {
+            id: "login",
+            type: "text",
+            label: "Логин",
+            value: "ivanivanov",
+            disabled: true,
+        },
+        firstName: {
+            id: "first_name",
+            type: "text",
+            label: "Имя",
+            value: "Иван",
+            disabled: true,
+        },
+        lastName: {
+            id: "last_name",
+            type: "text",
+            label: "Фамилия",
+            value: "Иванов",
+            disabled: true,
+        },
+        username: {
+            id: "username",
+            type: "text",
+            label: "Имя пользователя",
+            value: "Иван",
+            disabled: true,
+        },
+        phone: {
+            id: "phone",
+            type: "tel",
+            label: "Телефон",
+            value: "79099673030",
+            disabled: true,
+        },
+    },
+    changePassword: {
+        oldPassword: {
+            id: "old_password",
+            type: "password",
+            label: "Старый пароль",
+            placeholder: "•••••••••",
+        },
+        newPassword: {
+            id: "new_password",
+            type: "password",
+            label: "Новый пароль",
+            placeholder: "•••••••••••",
+        },
+        repeatNewPassword: {
+            id: "repeat_new_password",
+            type: "password",
+            label: "Повторите новый пароль",
+            placeholder: "•••••••••••",
+        },
+    },
+    changeData: {
+        email: {
+            id: "email",
+            type: "email",
+            label: "Почта",
+            value: "pochta@yandex.ru",
+        },
+        login: {
+            id: "login",
+            type: "text",
+            label: "Логин",
+            value: "ivanivanov",
+        },
+        firstName: {
+            id: "first_name",
+            type: "text",
+            label: "Имя",
+            value: "Иван",
+        },
+        lastName: {
+            id: "last_name",
+            type: "text",
+            label: "Фамилия",
+            value: "Иванов",
+        },
+        username: {
+            id: "username",
+            type: "text",
+            label: "Имя пользователя",
+            value: "Иван",
+        },
+        phone: {
+            id: "phone",
+            type: "tel",
+            label: "Телефон",
+            value: "79099673030",
+        },
+    }
 };
 
 /* ДАННАЯ МОКА СГЕНЕРИРОВАНА ИИ ИЗ ДИЗАЙН ПРОЕКТА */
